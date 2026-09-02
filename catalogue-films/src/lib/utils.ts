@@ -12,13 +12,15 @@
 // =====================================================================
 
 // --- Données de démonstration ----------------------------------------
+type genres = "SF" | "Horreur" | "Thriller" | "Drame" | "Aventure"
+
 type StatutFilm = "vu" | "a_voir" | "abandonne";
 
 interface Film {
   id: number;
   titre: string;
   annee: number;
-  genres: string[];
+  genres: genres[];
   note: number;
   statut: StatutFilm;
 }
