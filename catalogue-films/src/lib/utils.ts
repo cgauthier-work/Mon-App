@@ -25,6 +25,7 @@ interface Film {
   statut: StatutFilm;
 }
 
+
 export const FILMS : Film[] = [
   { id: 1, titre: "Alien", annee: 1979, genres: ["SF", "Horreur"], note: 8.5, statut: "vu" },
   { id: 2, titre: "Blade Runner", annee: 1982, genres: ["SF", "Thriller"], note: 8.1, statut: "vu" },
