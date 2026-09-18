@@ -1,0 +1,86 @@
+# Catalogue de Films
+
+Application React + TypeScript construite progressivement sur 5 TP (Travaux Pratiques) dans le cadre du cours React.js & TypeScript.
+
+## Stack technique
+
+- **React 19** — composants fonctionnels, hooks
+- **TypeScript 6** — mode strict, zéro `any`
+- **Tailwind CSS 4** — utilitaires, responsive mobile-first
+- **React Router DOM 7** — navigation SPA, routes imbriquées
+- **Vite 8** — bundler et serveur de développement
+- **OMDB API** — données de films en temps réel
+
+## Lancer le projet
+
+```bash
+npm install
+npm run dev
+```
+
+> **Clé OMDB requise** : créer un fichier `.env.local` à la racine avec :
+> ```
+> VITE_OMDB_KEY=ta_cle_ici
+> ```
+> Clé gratuite sur [omdbapi.com](https://www.omdbapi.com/apikey.aspx) (1 000 requêtes/jour).
+
+## Structure du projet
+
+```
+src/
+├── composants/
+│   ├── Badge.tsx          # Pastille colorée (neutre / succès / info / attention)
+│   ├── Bouton.tsx         # Bouton typé (primaire / secondaire / danger)
+│   ├── Carte.tsx          # Carte générique avec titre, sous-titre, children, actions
+│   ├── CarteFilm.tsx      # Carte spécialisée pour un film OMDB
+│   ├── ChampTexte.tsx     # Input contrôlé avec label et message d'erreur
+│   ├── FormulaireInscription.tsx
+│   ├── Layout.tsx         # Header avec navigation + <Outlet />
+│   ├── ListeFilms.tsx     # Grille de films locale (données statiques)
+│   ├── ListeInscriptions.tsx
+│   ├── RechercheFilms.tsx
+│   └── RouteProtegee.tsx  # Redirige vers /connexion si non connecté
+├── contextes/
+│   ├── AuthContext.tsx    # Pseudo utilisateur (connecter / déconnecter)
+│   └── FavorisContext.tsx # Liste de favoris via useReducer
+├── hooks/
+│   └── useFetch.ts        # Hook générique fetch<T> avec AbortController
+├── lib/
+│   ├── inscription.ts     # Validation formulaire d'inscription
+│   ├── omdb.ts            # Types et URLs pour l'API OMDB
+│   └── utils.ts           # Données et fonctions locales (Film, FILMS, trierPar…)
+└── pages/
+    ├── Accueil.tsx         # Page d'accueil avec liste statique
+    ├── Connexion.tsx       # Formulaire de connexion (pseudo)
+    ├── DetailFilm.tsx      # Détail d'un film via useParams + useFetch
+    ├── Favoris.tsx         # Liste des favoris (route protégée)
+    ├── PageIntrouvable.tsx # Page 404
+    └── Recherche.tsx       # Recherche OMDB en temps réel
+```
+
+## Ce qui a été construit par TP
+
+| TP | Sujet | Ce qui a été fait |
+|----|-------|-------------------|
+| TP1 | TypeScript strict | Migration de `utils.js` vers `utils.ts` : types, génériques, `Partial`, `Omit`, `Readonly` |
+| TP2 | Mini design system | Composants `Badge`, `Bouton`, `Carte`, `ListeFilms` avec Tailwind CSS et grille responsive |
+| TP3 | Formulaires | `ChampTexte`, `FormulaireInscription`, validation manuelle typée |
+| TP4 | API externe | `useFetch<T>`, `omdb.ts`, pages `Recherche` et `DetailFilm` avec AbortController |
+| TP5 | Routing & Contextes | React Router DOM, `AuthContext`, `FavorisContext` avec `useReducer`, `RouteProtegee` |
+
+## Commandes utiles
+
+```bash
+npm run dev          # Serveur de développement (http://localhost:5173)
+npm run build        # Build de production
+npx tsc --noEmit     # Vérification TypeScript sans compiler
+npm run lint         # Vérification ESLint
+```
+
+## Points TypeScript notables
+
+- **Zéro `any`** — chaque paramètre et retour est typé explicitement
+- **Génériques contraints** — `trierPar<T>(liste: T[], cle: keyof T)`
+- **Types utilitaires** — `Partial<Omit<Film, "id">>`, `Record<VarianteBouton, string>`
+- **Union littérales** — `StatutFilm`, `VarianteBouton`, `TonBadge` — le compilateur refuse les fautes de frappe
+- **Narrowing** — guards `typeof`, `in`, vérifications `undefined` avant usage

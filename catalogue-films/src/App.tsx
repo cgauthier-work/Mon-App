@@ -1,10 +1,24 @@
-import RechercheFilms from "./composants/RechercheFilms";
+import { Routes, Route } from 'react-router-dom';
+import Layout from './composants/Layout';
+import RouteProtegee from './composants/RouteProtegee';
+import Accueil from './pages/Accueil';
+import Recherche from './pages/Recherche';
+import DetailFilm from './pages/DetailFilm';
+import Favoris from './pages/Favoris';
+import Connexion from './pages/Connexion';
+import PageIntrouvable from './pages/PageIntrouvable';
 
 export default function App() {
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-8">Recherche de films</h1>
-      <RechercheFilms />
-    </main>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Accueil />} />
+        <Route path="recherche" element={<Recherche />} />
+        <Route path="films/:id" element={<DetailFilm />} />
+        <Route path="connexion" element={<Connexion />} />
+        <Route path="favoris" element={<RouteProtegee><Favoris /></RouteProtegee>} />
+        <Route path="*" element={<PageIntrouvable />} />
+      </Route>
+    </Routes>
   );
 }
