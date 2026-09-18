@@ -32,7 +32,7 @@ const tons: Record<TonBadge, string> = {
   attention: "bg-yellow-100 text-yellow-800",
 };
 
-export default function Badge({ texte, ton = "neutre" }: BadgeProps) {
+export function Badge({ texte, ton = "neutre" }: BadgeProps) {
   return (
     <span className={`text-xs px-2 py-1 rounded-full font-medium ${tons[ton]}`}>
       {texte}
